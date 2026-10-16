@@ -29,10 +29,12 @@ export async function getGitHubStats(): Promise<GitHubStats> {
     const [repoRes, prsRes] = await Promise.allSettled([
       fetch(REPO_URL, {
         headers,
+        signal: AbortSignal.timeout(5000),
         next: { revalidate: 3600 },
       }),
       fetch(PRS_URL, {
         headers,
+        signal: AbortSignal.timeout(5000),
         next: { revalidate: 3600 },
       }),
     ]);
@@ -40,19 +42,27 @@ export async function getGitHubStats(): Promise<GitHubStats> {
     const stats: GitHubStats = { ...fallback };
 
     if (repoRes.status === "fulfilled" && repoRes.value.ok) {
-      const data = await repoRes.value.json();
-      if (typeof data.stargazers_count === "number") {
-        stats.stars = data.stargazers_count;
-      }
-      if (typeof data.forks_count === "number") {
-        stats.forks = data.forks_count;
+      try {
+        const data = await repoRes.value.json();
+        if (typeof data?.stargazers_count === "number") {
+          stats.stars = data.stargazers_count;
+        }
+        if (typeof data?.forks_count === "number") {
+          stats.forks = data.forks_count;
+        }
+      } catch {
+        // preserve other metric if this JSON parse fails
       }
     }
 
     if (prsRes.status === "fulfilled" && prsRes.value.ok) {
-      const data = await prsRes.value.json();
-      if (typeof data.total_count === "number") {
-        stats.prs = data.total_count;
+      try {
+        const data = await prsRes.value.json();
+        if (typeof data?.total_count === "number") {
+          stats.prs = data.total_count;
+        }
+      } catch {
+        // preserve other metric if this JSON parse fails
       }
     }
 
