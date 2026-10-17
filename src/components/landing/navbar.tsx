@@ -53,15 +53,10 @@ export function Navbar({ stats, starsCount }: NavbarProps = {}) {
               <RotatingGitHubCounter stats={resolvedStats} />
             </div>
 
-            {/* GitHub counter - mobile */}
-            <div className="sm:hidden">
-              <GitHubCounter metric="stars" count={resolvedStarsCount} hideCountOnMobile />
-            </div>
-
             {/* Get Started button */}
             <Link
               href="/docs/getting-started"
-              className="group relative isolate inline-flex h-9 items-center justify-center overflow-hidden rounded-full bg-emerald-500 px-4 text-left text-sm font-medium text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] sm:h-10 sm:px-5"
+              className="group relative isolate hidden h-9 items-center justify-center overflow-hidden rounded-full bg-emerald-500 px-4 text-left text-sm font-medium text-black shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all duration-300 hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.5)] sm:inline-flex sm:h-10 sm:px-5"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <span>Get Started</span>

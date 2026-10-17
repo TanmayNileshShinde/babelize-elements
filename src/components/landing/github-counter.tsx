@@ -267,7 +267,7 @@ export function RotatingGitHubCounter({
       <span className="flex flex-1 items-center justify-center gap-1.5 pl-2 pr-3 overflow-hidden">
         <span
           key={activeMetric}
-          className="inline-flex items-center gap-1.5 transition-all duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-1"
+          className="inline-flex items-center gap-1.5 motion-safe:animate-counter-in"
         >
           {formattedCount && (
             <span className="text-xs font-medium sm:text-sm">{formattedCount}</span>
