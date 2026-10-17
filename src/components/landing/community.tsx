@@ -59,7 +59,7 @@ export interface CommunityProps {
 
 export function Community({ stats }: CommunityProps = {}) {
   return (
-    <section className="relative overflow-hidden py-24 md:py-32">
+    <section id="community" className="relative overflow-hidden py-24 md:py-32">
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <Reveal>
