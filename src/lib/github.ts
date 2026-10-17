@@ -5,8 +5,7 @@ export interface GitHubStats {
 }
 
 const REPO_URL = "https://api.github.com/repos/babelize/babelize-elements";
-const PRS_URL =
-  "https://api.github.com/search/issues?q=repo:babelize/babelize-elements+is:pr+is:open";
+const PRS_URL = "https://api.github.com/search/issues?q=repo:babelize/babelize-elements+is:pr";
 
 /**
  * Fetch GitHub metrics on the server with time-based revalidation (1 hour).

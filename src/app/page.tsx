@@ -17,7 +17,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <Navbar starsCount={stats.stars} />
+      <Navbar stats={stats} />
       <main>
         <Hero />
         <Features />

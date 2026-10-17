@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu, X, CornerDownLeft } from "lucide-react";
-import { GitHubCounter } from "./github-counter";
+import { GitHubCounter, RotatingGitHubCounter } from "./github-counter";
+import type { GitHubStats } from "@/lib/github";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -14,11 +15,14 @@ const navLinks = [
 ];
 
 export interface NavbarProps {
+  stats?: GitHubStats;
   starsCount?: number | null;
 }
 
-export function Navbar({ starsCount }: NavbarProps = {}) {
+export function Navbar({ stats, starsCount }: NavbarProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
+  const resolvedStats = stats ?? (starsCount !== undefined ? { stars: starsCount } : undefined);
+  const resolvedStarsCount = stats?.stars ?? starsCount;
 
   return (
     <nav className="fixed right-0 left-0 z-50 mx-auto flex max-w-7xl justify-center top-2 px-6 py-4 transition-all duration-300">
@@ -44,14 +48,14 @@ export function Navbar({ starsCount }: NavbarProps = {}) {
 
           {/* Right side actions */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* GitHub counter - desktop */}
+            {/* GitHub counter - desktop (cycles stars → forks → PRs) */}
             <div className="hidden sm:block">
-              <GitHubCounter metric="stars" count={starsCount} />
+              <RotatingGitHubCounter stats={resolvedStats} />
             </div>
 
             {/* GitHub counter - mobile */}
             <div className="sm:hidden">
-              <GitHubCounter metric="stars" count={starsCount} hideCountOnMobile />
+              <GitHubCounter metric="stars" count={resolvedStarsCount} hideCountOnMobile />
             </div>
 
             {/* Get Started button */}
@@ -99,7 +103,7 @@ export function Navbar({ starsCount }: NavbarProps = {}) {
             <div className="mt-1 flex justify-center">
               <GitHubCounter
                 metric="stars"
-                count={starsCount}
+                count={resolvedStarsCount}
                 className="w-full justify-center py-2.5 h-auto text-center"
               />
             </div>
