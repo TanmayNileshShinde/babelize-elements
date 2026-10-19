@@ -110,7 +110,25 @@ const LANG_TO_FLAG: Record<string, string> = {
   la: "\u{1F1FB}\u{1F1E6}",
 };
 
+/**
+ * Resolve a flag emoji for a locale code.
+ *
+ * Uses the 2-letter ISO 3166-1 region subtag (e.g. 'en-GB' -> 🇬🇧) when present,
+ * falling back to the base language mapping or a default globe symbol.
+ */
 export function getFlag(code: string): string {
+  if (!code) return "\u{1F310}";
+
+  try {
+    const locale = new Intl.Locale(code);
+    if (locale.region && /^[A-Za-z]{2}$/.test(locale.region)) {
+      const chars = [...locale.region.toUpperCase()].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65);
+      return String.fromCodePoint(...chars);
+    }
+  } catch {
+    // fallback to language lookup if invalid locale code
+  }
+
   const lang = code.split("-")[0].toLowerCase();
   return LANG_TO_FLAG[lang] ?? "\u{1F310}";
 }
