@@ -17,7 +17,7 @@ const greetings: Record<string, string> = {
   fr: "Bonjour, le monde !",
   es: "¡Hola, mundo!",
   de: "Hallo, Welt!",
-  ja: "今日は世界！",
+  ja: "こんにちは、世界！",
   ar: "مرحبا بالعالم!",
 };
 
