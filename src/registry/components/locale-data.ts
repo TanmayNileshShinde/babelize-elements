@@ -111,6 +111,20 @@ const LANG_TO_FLAG: Record<string, string> = {
 };
 
 export function getFlag(code: string): string {
+  if (!code) return "\u{1F310}";
+
+  try {
+    const locale = new Intl.Locale(code);
+    if (locale.region && /^[A-Za-z]{2}$/.test(locale.region)) {
+      const chars = [...locale.region.toUpperCase()].map(
+        (c) => 0x1f1e6 + c.charCodeAt(0) - 65,
+      );
+      return String.fromCodePoint(...chars);
+    }
+  } catch {
+    // fallback to language lookup if invalid locale code
+  }
+
   const lang = code.split("-")[0].toLowerCase();
   return LANG_TO_FLAG[lang] ?? "\u{1F310}";
 }
