@@ -139,6 +139,22 @@ const ITEMS: ItemDef[] = [
     filePath: "lib/utils.ts",
     dependencies: ["clsx", "tailwind-merge"],
   },
+  {
+    name: "locale-picker",
+    title: "Locale Picker",
+    description:
+      "Region picker with locale-derived defaults: currency, date and number formats, and first day of week.",
+    type: "registry:ui",
+    source: "registry/components/locale-picker",
+    filePath: "ui/locale-picker.tsx",
+    dependencies: ["clsx", "tailwind-merge", "lucide-react", "motion"],
+    registryDependencies: [
+      "locale-types",
+      "locale-data",
+      "use-controllable-state",
+      "use-listbox-navigation",
+    ],
+  },
 ];
 
 /**
